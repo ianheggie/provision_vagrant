@@ -241,7 +241,7 @@ check_gemfile()
         install_gem_packages $gemfile pg postgresql-client
         install_gem_packages $gemfile redi redis-server
         install_gem_packages $gemfile rmagick ImageMagick libmagickwand-dev
-        install_gem_packages $gemfile sqlite slite3 libsqlite3-dev
+        install_gem_packages $gemfile sqlite sqlite3 libsqlite3-dev
         install_gem_packages $gemfile therubyracer nodejs
         install_gem_packages $gemfile typhoeus curl
     fi
@@ -356,18 +356,7 @@ provision_machine()
         # Elixir projects
         if [ -s $app_root/mix.exs ] ; then
             echo "TO DO: examine mix.exs!!"
-            #        install_mix_packages cld3 pkgconf protobuf zlib1g-dev
-            #        install_mix_packages libxml libxml2
-            #        install_mix_packages listen inotify
-            #        install_mix_packages memcache memcached
-            #        install_mix_packages mysql mysql-client
-            #        install_mix_packages nokogiri libxml2 libxslt1-dev zlib1g-dev
-            #        install_mix_packages pg postgresql-client
-            #        install_mix_packages redi redis-server
-            #        install_mix_packages rmagick ImageMagick
-            #        install_mix_packages sqlite slite3
-            #        install_mix_packages therubyracer nodejs
-            #        install_mix_packages typhoeus curl
+            #        Use example of gems to specify packages
         fi
         if [ -s $app_root/mix.exs -o elixir = $app_root ] ; then
             if $first_time_elixir ; then
