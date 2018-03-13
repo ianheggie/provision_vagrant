@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Provision for development on local/vagrant system
+#
+# Copy bin_provision_template to bin/provision in your application root directory
+# for configuring your local/vagrant development system
+#
+# (Review provision.sh first, to confirm you agree with the choices I have made)
+
+url=https://raw.githubusercontent.com/ianheggie/provision_vagrant/master/provision.sh
+mkdir -p $HOME/bin
+latest_script=$HOME/bin/provision.sh
+rm -f $latest_script
+if wget $url -O $latest_script || curl $url -o $latest_script
+then
+  bash $latest_script "$@"  # adjust to add project specific arguments
+fi

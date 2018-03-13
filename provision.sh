@@ -4,7 +4,7 @@
 #
 # Add the following to Vagrantfile:
 #   config.vm.provision "shell",
-#     path: "https://gist.githubusercontent.com/ianheggie/978f54360dd00f8e8f2494c229f63459/raw/provision.sh?cache_bust=#{Process.pid}",
+#     path: "https://raw.githubusercontent.com/ianheggie/provision_vagrant/master/provision.sh?cache_bust=#{Process.pid}",
 #     args: %w{ --prefix myproject mysql-server /vagrant }
 #
 # Meaning of arguments:
@@ -14,8 +14,7 @@
 #            packages as appropriate
 # 
 
-
-echo "provision.sh version: 1.0"
+echo "provision.sh version: 2.0"
 
 chruby_version=0.3.9
 min_total_memory=2048
