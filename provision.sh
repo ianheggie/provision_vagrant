@@ -14,7 +14,7 @@
 #            packages as appropriate
 # 
 
-echo "provision.sh version: 2.0"
+echo "provision.sh version: 3.0 called with args: $*"
 
 chruby_version=0.3.9
 min_total_memory=2048
