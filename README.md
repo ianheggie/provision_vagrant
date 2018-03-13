@@ -12,7 +12,7 @@ It can be used in two different ways:
 2. Add the following to Vagrantfile:
 ```
     config.vm.provision "shell",
-     path: "https://gist.githubusercontent.com/ianheggie/978f54360dd00f8e8f2494c229f63459/raw/provision?cache_bust=#{Process.pid}",
+     path: "https://raw.githubusercontent.com/ianheggie/provision_vagrant/master/provision?cache_bust=#{Process.pid}",
      args: %w{ --prefix myproject mysql-server /vagrant }
 ```
 3. Copy provision.sh to bin/provision and adjust as needed (doesn't track my changes)

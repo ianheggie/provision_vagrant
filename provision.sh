@@ -105,9 +105,16 @@ install_package() {
 }
 
 install_gem_packages() {
-    echo . ; echo . ;  echo Checking for gem: $1
-    if [ -s $app_root/Gemfile ] && grep "$1" $app_root/Gemfile $app_root/Gemfile.lock ; then
-        shift
+    gem="$1"
+    shift
+    gemfile="$1"
+    shift
+    gemfile_lock="$gemfile.lock"
+    echo . ; echo . ;  echo Checking for gem: $gem in $gemfile $gemfile_lock
+    if [ ! -s $gemfile_lock ] ; then
+        gemfile_lock=''
+    fi
+    if [ -s $gemfile ] && grep "$gem" $gemfile $gemfile_lock ; then
         install_package $*
     fi
 }
@@ -216,7 +223,28 @@ install_standard_packages()
     echo . ; echo . ;  echo Installing standard tools, libraries and build environment
     install_package vim-nox tmux apt-transport-https \
         qt4-qmake curl git-core python-software-properties \
-        insserv subversion
+        insserv subversion build-essential patch 
+}
+
+check_gemfile()
+{
+    gemfile=$1
+    if [ -s $gemfile ] ; then
+        install_gem_packages $gemfile capybara-webkit qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+        install_gem_packages $gemfile cld3 pkgconf protobuf zlib1g-dev
+        install_gem_packages $gemfile libxml libxml2
+        install_gem_packages $gemfile listen inotify
+        install_gem_packages $gemfile memcache memcached
+        install_gem_packages $gemfile image_science libfreeimage-dev
+        install_gem_packages $gemfile mysql mysql-client libmysqlclient-dev
+        install_gem_packages $gemfile nokogiri libxml2 libxslt1-dev zlib1g-dev liblzma-dev libgmp-dev
+        install_gem_packages $gemfile pg postgresql-client
+        install_gem_packages $gemfile redi redis-server
+        install_gem_packages $gemfile rmagick ImageMagick libmagickwand-dev
+        install_gem_packages $gemfile sqlite slite3 libsqlite3-dev
+        install_gem_packages $gemfile therubyracer nodejs
+        install_gem_packages $gemfile typhoeus curl
+    fi
 }
 
 provision_machine()
@@ -301,22 +329,8 @@ provision_machine()
         fi
 
         # Ruby projects
-        if [ -s $app_root/Gemfile ] ; then
-            install_gem_packages capybara-webkit qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
-            install_gem_packages cld3 pkgconf protobuf zlib1g-dev
-            install_gem_packages libxml libxml2
-            install_gem_packages listen inotify
-            install_gem_packages memcache memcached
-            install_gem_packages image_science libfreeimage-dev
-            install_gem_packages mysql mysql-client libmysqlclient-dev
-            install_gem_packages nokogiri libxml2 libxslt1-dev zlib1g-dev
-            install_gem_packages pg postgresql-client
-            install_gem_packages redi redis-server
-            install_gem_packages rmagick ImageMagick libmagickwand-dev
-            install_gem_packages sqlite slite3 libsqlite3-dev
-            install_gem_packages therubyracer nodejs
-            install_gem_packages typhoeus curl
-        fi
+        check_gemfile $app_root/Gemfile
+        check_gemfile $app_root/Gemfile.default
         if [ -s $app_root/Gemfile -o -s $app_root/.ruby_version -o ruby = $app_root ] ; then
             if $first_time_ruby ; then
                 first_time_ruby=false
