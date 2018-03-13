@@ -105,9 +105,9 @@ install_package() {
 }
 
 install_gem_packages() {
-    gem="$1"
-    shift
     gemfile="$1"
+    shift
+    gem="$1"
     shift
     gemfile_lock="$gemfile.lock"
     echo . ; echo . ;  echo Checking for gem: $gem in $gemfile $gemfile_lock
