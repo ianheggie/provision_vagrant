@@ -186,6 +186,29 @@ install_ruby_version() {
             fi
         fi
     fi
+    if [ -s $app_root/.ruby-versions ] ; then
+        while read v
+        do
+            if [ -n "$v" ] ; then
+                dest=/opt/rubies/$v
+                if [ -x $dest/bin/ruby ] ; then
+                  echo $dest already created
+                else
+                    ruby-build ${v} ${dest}
+                    case "$v" in
+                    1.8*)
+                        ${dest}/bin/gem update --system 1.8.25
+                        ;;
+                    esac
+                    if [[ $EUID -eq 0 ]]; then
+                        echo "Skipping installing bundler - it should not be run as root"
+                    else
+                        ${dest}/bin/gem install bundler
+                    fi
+                fi
+            fi
+        done < $app_root/.ruby-versions
+    fi
 }
 
 install_standard_packages()
