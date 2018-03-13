@@ -233,7 +233,7 @@ check_gemfile()
         install_gem_packages $gemfile capybara-webkit qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
         install_gem_packages $gemfile cld3 pkgconf protobuf zlib1g-dev
         install_gem_packages $gemfile libxml libxml2
-        install_gem_packages $gemfile listen inotify
+        install_gem_packages $gemfile listen inotify-tools  # used to be inotify under trusty
         install_gem_packages $gemfile memcache memcached
         install_gem_packages $gemfile image_science libfreeimage-dev
         install_gem_packages $gemfile mysql mysql-client libmysqlclient-dev
