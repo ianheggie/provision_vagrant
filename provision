@@ -10,8 +10,8 @@
 url=https://raw.githubusercontent.com/ianheggie/provision_vagrant/master/provision.sh
 mkdir -p $HOME/bin
 latest_script=$HOME/bin/provision.sh
-rm -f $latest_script
-if wget $url -O $latest_script || curl $url -o $latest_script
+rm -f $latest_script*
+if curl $url -o $latest_script || wget $url --unlink -O $latest_script
 then
   echo Running $latest_script "$@"
   bash $latest_script "$@"  # adjust to add project specific arguments using set -- arg1 arg2 arg3... or vagrant shell provisioner args
